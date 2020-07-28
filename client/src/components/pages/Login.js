@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../contexts/User';
-import auth from '../services/auth';
+import { useUser } from '../../contexts/User';
+import auth from '../../services/auth';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
-const Signup = () => {
+const Login = () => {
   const userContext = useUser();
 
   const history = useHistory();
@@ -13,9 +13,9 @@ const Signup = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  async function signup() {
+  async function login() {
     try {
-      await auth.signup({ username, password });
+      await auth.login({ username, password });
 
       const user = await auth.getUser();
 
@@ -30,13 +30,13 @@ const Signup = () => {
   }
 
   return (
-    <main className="authentication-page">
-      <h1 className="page-title">Sign up</h1>
+    <main className="page">
+      <h1 className="page-title">Login</h1>
       <form
         className="authentication-form"
         onSubmit={(e) => {
           e.preventDefault();
-          signup();
+          login();
         }}>
         <input
           value={username}
@@ -47,11 +47,11 @@ const Signup = () => {
           value={password}
           placeholder="Enter password"
           onChange={(e) => setPassword(e.target.value)} />
-        <input type="submit" value="Sign up" />
+        <input type="submit" value="Login" />
       </form>
-      <Link to="/login">Already have an account? Log In</Link>
+      <Link to="/signup">Sign up for an account</Link>
     </main>
   )
 }
 
-export default Signup;
+export default Login;

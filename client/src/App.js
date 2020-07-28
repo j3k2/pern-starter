@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,10 +11,11 @@ import { ToastContainer } from 'react-toastify';
 
 import { useUser } from './contexts/User';
 
-import Dashboard from './components/Dashboard';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Header from './components/Header';
+import Dashboard from './components/pages/Dashboard';
+import Login from './components/pages/Login';
+import Signup from './components/pages/Signup';
+import Landing from './components/pages/Landing';
+import Header from './components/common/Header';
 
 import loadingSpinner from './assets/loading.gif';
 import auth from './services/auth';
@@ -26,7 +26,7 @@ function AuthenticatedApp() {
   return (
     <Router>
       <Header>
-        <span>{`Logged in as: ${JSON.stringify(userContext.user.username)}`}
+        <span>{`Logged in as: ${userContext.user.username}`}
         </span>
         <button onClick={() => {
           auth.logout();
@@ -46,17 +46,12 @@ function AuthenticatedApp() {
 function UnauthenticatedApp() {
   return (
     <Router>
-      {/* <Header>
-        <Link to="/login">Log in</Link>
-        <Link to="/signup">Sign Up</Link>
-      </Header> */}
       <Switch>
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
-        {/* <Route path="/" component={Landing}/>
-        <Route path="*" component={Landing}/> */}
+        <Route exact path="/" component={Landing} />
         <Route path="*">
-          <Redirect to="/login"/>
+          <Redirect to="/" />
         </Route>
       </Switch>
     </Router>
