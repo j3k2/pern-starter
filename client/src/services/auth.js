@@ -2,7 +2,7 @@ import request from 'superagent';
 
 async function authenticate(fields, endpoint) {
   const res = await request
-    .post(`http://localhost:5000/auth/${endpoint}`)
+    .post(`/auth/${endpoint}`)
     .send(fields);
 
   localStorage.setItem('token', res.body.token);
@@ -26,7 +26,7 @@ async function getUser() {
     return null;
   }
   const res = await request
-    .get('http://localhost:5000/auth/user')
+    .get('/auth/user')
     .set('Authorization', `Bearer ${token}`);
 
   return res.body.user;
