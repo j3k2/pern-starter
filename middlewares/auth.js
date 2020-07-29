@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
       return res.status(401).json('Not authorized');
     }
 
-    const payload = await jwt.verify(jwtToken, process.env.jwtSecret);
+    const payload = await jwt.verify(jwtToken, process.env.JWT_SECRET);
 
     req.userId = payload.id;
 
