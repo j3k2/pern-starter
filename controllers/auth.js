@@ -89,7 +89,7 @@ async function getUser(req, res) {
   }
 }
 
-export {
+module.exports = {
   signup,
   login,
   getUser
