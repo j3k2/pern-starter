@@ -13,11 +13,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.2",
     "pg": "^8.3.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
+    "start": "node server/index.js",
+    "watch": "nodemon server/index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "",
