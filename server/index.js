@@ -9,15 +9,16 @@ const authRoutes = require('./routes/auth');
 app.use(express.json());
 app.use(cors());
 
+app.use('/', [authRoutes]);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 
+  //after all other route definitions:
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 }
-
-app.use('/', [authRoutes]);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`)
