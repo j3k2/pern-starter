@@ -14,6 +14,9 @@ const Signup = () => {
   const [password, setPassword] = React.useState('');
 
   async function signup() {
+    if(!username.length || !password.length) {
+      return;
+    }
     try {
       await auth.signup({ username, password });
 
@@ -21,7 +24,7 @@ const Signup = () => {
 
       if (user) {
         userContext.setUser(user);
-        history.push('/dashboard');
+        history.push('/');
       }
     } catch (err) {
       console.log(err.response);

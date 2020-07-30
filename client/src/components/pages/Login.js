@@ -14,6 +14,9 @@ const Login = () => {
   const [password, setPassword] = React.useState('');
 
   async function login() {
+    if(!username.length || !password.length) {
+      return;
+    }
     try {
       await auth.login({ username, password });
 
