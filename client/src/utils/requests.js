@@ -8,24 +8,20 @@ function getToken () {
   return token;
 }
 
-async function post(url, params) {
-  const token = getToken();
-
+async function post(url, params, useToken) {
   const res = await request
     .post(url)
     .send(params)
-    .set('Authorization', `Bearer ${token}`);
+    .set(useToken ? {'Authorization':`Bearer ${getToken()}`} : {});
 
   return res;
 }
 
-async function get(url, params) {
-  const token = getToken();
-
+async function get(url, params, useToken) {
   const res = await request
     .get(url)
     .query(params)
-    .set('Authorization', `Bearer ${token}`);
+    .set(useToken ? {'Authorization':`Bearer ${getToken()}`} : {});
 
   return res;
 }

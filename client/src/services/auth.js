@@ -1,4 +1,4 @@
-import { get, post } from '../utils/api';
+import { get, post } from '../utils/requests';
 
 async function login(params) {
   const res = await post(`/auth/login`, params);
@@ -15,7 +15,7 @@ function logout() {
 }
 
 async function getUser() {
-  const res = await get('/auth/user');
+  const res = await get('/auth/user', {}, true);
 
   return res.body.user;
 }
