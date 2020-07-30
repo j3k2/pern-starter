@@ -1,7 +1,7 @@
 const knex = require('../knex');
 
-async function findUser(params) {
-  const res = await knex('users')
+async function findOne(db, params) {
+  const res = await knex(db)
     .where(params);
 
   if (!res.length) {
@@ -11,8 +11,8 @@ async function findUser(params) {
   return res[0];
 }
 
-async function createUser(params) {
-  const res = await knex('users')
+async function create(db, params) {
+  const res = await knex(db)
     .returning('id')
     .insert(params);
 
@@ -24,6 +24,6 @@ async function createUser(params) {
 }
 
 module.exports = {
-  findUser,
-  createUser
+  findOne,
+  create
 }

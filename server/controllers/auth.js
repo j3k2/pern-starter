@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-const { findUser, createUser } = require('../queries/user');
+const { findOne, create } = require('../utils/queries');
 
 function getToken(id) {
   const payload = {
@@ -16,7 +16,7 @@ async function signup(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await findUser({ username });
+    const user = await findOne('users', { username });
 
     if (user) {
       return res.status(401).json('User with this username already exists');
@@ -26,7 +26,7 @@ async function signup(req, res) {
     const salt = await bcrypt.genSalt(saltRounds);
     const encryptedPassword = await bcrypt.hash(password, salt);
 
-    const createdUserId = await createUser({ username, password: encryptedPassword });
+    const createdUserId = await create('users', { username, password: encryptedPassword });
 
     if(!createdUserId) {
       return res.status(500).json('Could not create user');
@@ -45,7 +45,7 @@ async function login(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await findUser({ username });
+    const user = await findOne('users', { username });
 
     if (!user) {
       return res.status(401).json('Could not find account with this username');
@@ -68,7 +68,7 @@ async function login(req, res) {
 
 async function getUser(req, res) {
   try {
-    const user = await findUser({ id: req.userId });
+    const user = await findOne('users', { id: req.userId });
 
     if (!user) {
       res.status(401).json('Could not find authorized user');
