@@ -1,19 +1,13 @@
-import request from 'superagent';
+import { get, post } from '../utils/api';
 
-async function authenticate(fields, endpoint) {
-  const res = await request
-    .post(`/auth/${endpoint}`)
-    .send(fields);
-
+async function login(params) {
+  const res = await post(`/auth/login`, params);
   localStorage.setItem('token', res.body.token);
 }
 
-async function login(fields) {
-  await authenticate(fields, 'login');
-}
-
-async function signup(fields) {
-  await authenticate(fields, 'signup');
+async function signup(params) {
+  const res = await post(`/auth/signup`, params);
+  localStorage.setItem('token', res.body.token);
 }
 
 function logout() {
@@ -21,13 +15,7 @@ function logout() {
 }
 
 async function getUser() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return null;
-  }
-  const res = await request
-    .get('/auth/user')
-    .set('Authorization', `Bearer ${token}`);
+  const res = await get('/auth/user');
 
   return res.body.user;
 }
