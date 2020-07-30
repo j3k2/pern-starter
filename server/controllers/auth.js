@@ -26,7 +26,7 @@ async function signup(req, res) {
     const salt = await bcrypt.genSalt(saltRounds);
     const encryptedPassword = await bcrypt.hash(password, salt);
 
-    const createdUserId = await create('users', { username, password: encryptedPassword });
+    const createdUserId = await create('users', { username, password: encryptedPassword }, 'id');
 
     if(!createdUserId) {
       return res.status(500).json('Could not create user');
@@ -45,7 +45,7 @@ async function login(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await findOne('users', { username });
+    const user = await findOne('users', { username }, ['password']);
 
     if (!user) {
       return res.status(401).json('Could not find account with this username');
@@ -68,7 +68,7 @@ async function login(req, res) {
 
 async function getUser(req, res) {
   try {
-    const user = await findOne('users', { id: req.userId });
+    const user = await findOne('users', { id: req.userId }, ['username', 'id']);
 
     if (!user) {
       res.status(401).json('Could not find authorized user');

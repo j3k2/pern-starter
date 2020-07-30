@@ -1,7 +1,8 @@
 const knex = require('../knex');
 
-async function findOne(db, params) {
+async function findOne(db, params, columns) {
   const res = await knex(db)
+    .select(columns)
     .where(params);
 
   if (!res.length) {
@@ -11,9 +12,9 @@ async function findOne(db, params) {
   return res[0];
 }
 
-async function create(db, params) {
+async function create(db, params, columns) {
   const res = await knex(db)
-    .returning('id')
+    .returning(columns)
     .insert(params);
 
   if (!res.length) {
