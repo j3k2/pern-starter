@@ -45,7 +45,7 @@ async function login(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await findOne('users', { username }, ['password']);
+    const user = await findOne('users', { username }, ['password', 'id']);
 
     if (!user) {
       return res.status(401).json('Could not find account with this username');
