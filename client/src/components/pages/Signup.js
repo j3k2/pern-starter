@@ -15,6 +15,7 @@ const Signup = () => {
 
   async function signup() {
     if(!username.length || !password.length) {
+      toast.error('Username and password are required');
       return;
     }
     try {
