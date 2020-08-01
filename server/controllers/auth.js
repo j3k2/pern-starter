@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-const { findOne, create } = require('../utils/queries');
+const { findOne, create, count } = require('../utils/queries');
 
 function getToken(id) {
   const payload = {
@@ -16,9 +16,9 @@ async function signup(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await findOne('users', { username });
+    const userCount = await count('users', { username });
 
-    if (user) {
+    if (userCount) {
       return res.status(401).json('User with this username already exists');
     }
 
@@ -26,7 +26,7 @@ async function signup(req, res) {
     const salt = await bcrypt.genSalt(saltRounds);
     const encryptedPassword = await bcrypt.hash(password, salt);
 
-    const createdUserId = await create('users', { username, password: encryptedPassword }, 'id');
+    const createdUserId = await create('users', { username, password: encryptedPassword });
 
     if(!createdUserId) {
       return res.status(500).json('Could not create user');
