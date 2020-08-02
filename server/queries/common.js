@@ -9,18 +9,18 @@ async function count(db, params) {
   return parseInt(res.count);
 }
 
-async function findOne(db, params, columns) {
+async function findOne(db, params, outputColumns) {
   const res = await knex(db)
-    .select(columns)
+    .select(outputColumns)
     .where(params)
     .first();
 
   return res;
 }
 
-async function create(db, params, columns = 'id') {
+async function create(db, params, outputColumns = 'id') {
   const res = await knex(db)
-    .returning(columns)
+    .returning(outputColumns)
     .insert(params);
 
   if (!res.length) {

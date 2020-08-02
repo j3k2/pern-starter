@@ -6,12 +6,12 @@ const {
   getUser
 } = require('../controllers/auth');
 
-const authorized = require('../middleware/auth');
+const authorizer = require('../middleware/authorizer');
 
 router.post('/auth/signup', signup);
 
 router.post('/auth/login', login);
 
-router.get('/auth/user', authorized, getUser);
+router.get('/auth/user', authorizer, getUser);
 
 module.exports = router;
