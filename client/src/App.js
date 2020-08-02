@@ -9,7 +9,7 @@ import {
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-import { useUser } from './contexts/User';
+import { useUserContext } from './contexts/User';
 
 import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
@@ -21,7 +21,7 @@ import loadingSpinner from './assets/loading.gif';
 import auth from './services/auth';
 
 function AuthenticatedApp() {
-  const userContext = useUser();
+  const userContext = useUserContext();
 
   return (
     <Router>
@@ -59,7 +59,7 @@ function UnauthenticatedApp() {
 }
 
 function App() {
-  const userContext = useUser();
+  const userContext = useUserContext();
   const user = userContext.user;
   const userPending = userContext.userPending;
 

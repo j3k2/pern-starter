@@ -66,7 +66,7 @@ async function login(req, res) {
   }
 }
 
-async function getUser(req, res) {
+async function getAuthUser(req, res) {
   try {
     const user = await findUser({ id: req.userId }, ['username', 'id']);
 
@@ -84,5 +84,5 @@ async function getUser(req, res) {
 module.exports = {
   signup,
   login,
-  getUser
+  getAuthUser
 }

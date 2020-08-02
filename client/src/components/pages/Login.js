@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../contexts/User';
+import { useUserContext } from '../../contexts/User';
 import auth from '../../services/auth';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
-  const userContext = useUser();
+  const userContext = useUserContext();
 
   const history = useHistory();
 
@@ -21,14 +21,14 @@ const Login = () => {
     try {
       await auth.login({ username, password });
 
-      const user = await auth.getUser();
+      const user = await auth.getAuthUser();
 
       if (user) {
         userContext.setUser(user);
         history.push('/dashboard');
       }
     } catch (err) {
-      console.log(err.response);
+      console.log(err);
       toast.error(err.response.body);
     }
   }

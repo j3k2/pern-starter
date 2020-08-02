@@ -12,7 +12,7 @@ function UserProvider(props) {
     if (token) {
       async function fetchUser() {
         try {
-          const user = await auth.getUser();
+          const user = await auth.getAuthUser();
           setUser(user);
           setUserPending(false);
         } catch {
@@ -36,8 +36,8 @@ function UserProvider(props) {
   )
 }
 
-const useUser = () => React.useContext(UserContext);
+const useUserContext = () => React.useContext(UserContext);
 
 export default UserContext;
 
-export { UserProvider, useUser }
+export { UserProvider, useUserContext }

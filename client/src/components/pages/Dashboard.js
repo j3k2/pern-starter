@@ -1,8 +1,8 @@
 import React from 'react';
-import { useUser } from '../../contexts/User';
+import { useUserContext } from '../../contexts/User';
 
 const Dashboard = () => {
-  const userContext = useUser();
+  const userContext = useUserContext();
 
   return (
     <main className="centered-column">
