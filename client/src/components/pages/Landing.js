@@ -8,7 +8,7 @@ export default function Landing() {
       <Link to="/login">Log in</Link>
       <Link to="/signup">Sign Up</Link>
     </Header>
-    <main className="page">
+    <main className="centered-column">
       Welcome! Login or sign up!
     </main>
   </React.Fragment>)

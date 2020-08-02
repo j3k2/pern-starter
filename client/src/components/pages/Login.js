@@ -34,10 +34,10 @@ const Login = () => {
   }
 
   return (
-    <main className="page">
+    <main className="centered-column">
       <h1 className="page-title">Login</h1>
       <form
-        className="authentication-form"
+        className="centered-column"
         onSubmit={(e) => {
           e.preventDefault();
           login();

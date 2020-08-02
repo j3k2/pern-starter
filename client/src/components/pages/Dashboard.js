@@ -5,11 +5,9 @@ const Dashboard = () => {
   const userContext = useUser();
 
   return (
-    <React.Fragment>
-      <main className="page">
-        Welcome, {userContext.user.username}!
-      </main>
-    </React.Fragment>
+    <main className="centered-column">
+      Welcome, {userContext.user.username}!
+    </main>
   )
 }
 

@@ -34,10 +34,10 @@ const Signup = () => {
   }
 
   return (
-    <main className="page">
+    <main className="centered-column">
       <h1 className="page-title">Sign up</h1>
       <form
-        className="authentication-form"
+        className="centered-column"
         onSubmit={(e) => {
           e.preventDefault();
           signup();
